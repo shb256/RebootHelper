@@ -9,3 +9,7 @@ You can hide the programm for 30 minutes or you can reboot right now
 
 If for some case the user is able to kill the program, it will also reboot automatically in order of the task scheduler.
 
+javac RebootHelper.java
+to run java RebootHelper
+
+I use it together PDQ Deploy
