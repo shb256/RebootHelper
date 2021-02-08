@@ -21,12 +21,23 @@ public class RebootHelper {
     }
     static void runTask(){
         try {
-            Runtime.getRuntime().exec("schtasks /delete /tn force_reboot /ru system /f");
-            Runtime.getRuntime().exec("shutdown -r -c 60 -t \"Das System startet in 60 Sekunden neu\"");
+            Runtime.getRuntime().exec("schtasks /delete /tn force_reboot /f");
+            Runtime.getRuntime().exec("shutdown -r -t 60 -c \"Das System startet in 60 Sekunden neu\"");
             System.exit(0);
         } catch (IOException io) { System.out.print(io); }
     }
     public static void main(String args[]) {
+        try{
+        Process checkRunning = Runtime.getRuntime().exec("schtasks /query /tn force_reboot");
+        if( checkRunning.waitFor()== 0){
+            System.out.println("Task already set");
+            System.exit(0);
+        }
+    }catch(IOException io){
+
+    }catch(InterruptedException ie){
+
+    }
 
         int dauer = 8; // in Tagen
         LocalDateTime currentDateAndTime = LocalDateTime.now();
